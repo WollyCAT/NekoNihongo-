@@ -69,10 +69,10 @@ export const Flashcards: React.FC<FlashcardsProps> = ({ cards, onRemove }) => {
             onClick={() => setIsFlipped(!isFlipped)}
             style={{ transformStyle: 'preserve-3d' }}
           >
-            <div className={`w-full h-full bg-white rounded-3xl shadow-md border-2 flex flex-col items-center justify-center p-8 text-center relative
+            <div className={`w-full h-full bg-white rounded-3xl shadow-md border-2 relative overflow-hidden
               ${currentCard.type === 'word' ? 'border-amber-200' : 'border-rose-200'}`}
             >
-              <div className={`absolute top-4 left-4 px-2 py-1 rounded text-xs font-bold uppercase tracking-wider
+              <div className={`absolute top-4 left-4 px-2 py-1 rounded text-xs font-bold uppercase tracking-wider z-10
                 ${currentCard.type === 'word' ? 'bg-amber-100 text-amber-700' : 'bg-rose-100 text-rose-700'}`}
               >
                 {currentCard.type}
@@ -85,14 +85,14 @@ export const Flashcards: React.FC<FlashcardsProps> = ({ cards, onRemove }) => {
                   if (cards.length === 1) setCurrentIndex(0);
                   else if (currentIndex === cards.length - 1) setCurrentIndex(currentIndex - 1);
                 }}
-                className="absolute top-4 right-4 p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-full transition-colors"
+                className="absolute top-4 right-4 p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-full transition-colors z-10 bg-white/80 backdrop-blur-sm"
               >
                 <Trash2 size={18} />
               </button>
 
               {!isFlipped ? (
                 // Front of card
-                <div>
+                <div className="w-full h-full flex flex-col items-center justify-center p-8 text-center">
                   <h3 className="text-4xl font-japanese font-bold text-gray-900 mb-4">
                     {currentCard.front}
                   </h3>
@@ -102,7 +102,7 @@ export const Flashcards: React.FC<FlashcardsProps> = ({ cards, onRemove }) => {
                 </div>
               ) : (
                 // Back of card
-                <div className="w-full">
+                <div className="w-full h-full overflow-y-auto p-8 pt-16 text-center">
                   {currentCard.reading && (
                     <p className="text-lg text-amber-600 font-japanese mb-2">
                       【{currentCard.reading}】
